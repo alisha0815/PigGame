@@ -10,12 +10,16 @@ const player1El = document.querySelector('.player--1');
 
 const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1');
+
 const diceEl = document.querySelector('.dice');
+
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+
 const current0Ele = document.querySelector('#current--0');
 const current1Ele = document.querySelector('#current--1');
+
 let currentScore = 0; // initialize current score
 // total score, storing in an array
 const scores = [0, 0];
@@ -88,7 +92,7 @@ btnHold.addEventListener('click', function () {
       playing = false;
       // Make the dice hidden
       diceEl.classList.add('hidden');
-      console.log(`💯💯 Player ${activePlayer + 1} won!`);
+      // console.log(`💯💯 Player ${activePlayer + 1} won!`);
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.add('player--winner');
@@ -100,4 +104,28 @@ btnHold.addEventListener('click', function () {
       switchPlayer();
     }
   }
+});
+
+// Resetting the game
+btnNew.addEventListener('click', function () {
+  console.log('all reset');
+  // remove the winner class
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove('player--winner');
+  // set all the scores back to 0
+  // total score set back to 0
+  scores[0] = 0;
+  scores[1] = 0;
+  console.log(scores); // total scores set to 0
+  // display total scores
+  document.getElementById('score--0').textContent = scores[0];
+  document.getElementById('score--1').textContent = scores[1];
+  // current scores set back to 0
+  current0Ele.textContent = 0;
+  current1Ele.textContent = 0;
+  // displaying active player (player1)
+  document.querySelector('.player--0').classList.add('player--active');
+  // activating all the buttons
+  playing = true;
 });
