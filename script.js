@@ -20,12 +20,29 @@ const btnHold = document.querySelector('.btn--hold');
 const current0Ele = document.querySelector('#current--0');
 const current1Ele = document.querySelector('#current--1');
 
-let currentScore = 0; // initialize current score
-// total score, storing in an array
-const scores = [0, 0];
-// keep track of the active player
-let activePlayer = 0; // we start with player #1
-let playing = true;
+// Declare the variables that are scoped to init function
+let scores, activePlayer, currentScore, playing;
+
+// Starting condition
+const init = function () {
+  currentScore = 0; // initialize current score
+  scores = [0, 0];
+  activePlayer = 0; // we start with player #1
+  playing = true;
+
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+  player0El.classList.add('player--active'); // setting play#1 active
+  player1El.classList.remove('player--active');
+  diceEl.classList.add('hidden');
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0Ele.textContent = 0;
+  current1Ele.textContent = 0;
+};
+
+// Run the starting condition
+init();
 
 // Switch to the next player
 const switchPlayer = function () {
@@ -36,15 +53,6 @@ const switchPlayer = function () {
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
 };
-
-// Starting Conditions
-score0El.textContent = 0;
-score1El.textContent = 0; //JS will automatically convert them to strings to actually display them on the page
-// console.log(score0);
-// console.log(score1);
-
-// Hide the dice here
-// Create a hidden class (CSS) and then add that hidden
 
 // Rolling dice functionality
 btnRoll.addEventListener('click', function () {
@@ -87,7 +95,7 @@ btnHold.addEventListener('click', function () {
       scores[activePlayer];
 
     // 2. Check if player's score is >= 100
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       // Finish the game
       playing = false;
       // Make the dice hidden
@@ -107,25 +115,4 @@ btnHold.addEventListener('click', function () {
 });
 
 // Resetting the game
-btnNew.addEventListener('click', function () {
-  console.log('all reset');
-  // remove the winner class
-  document
-    .querySelector(`.player--${activePlayer}`)
-    .classList.remove('player--winner');
-  // set all the scores back to 0
-  // total score set back to 0
-  scores[0] = 0;
-  scores[1] = 0;
-  console.log(scores); // total scores set to 0
-  // display total scores
-  document.getElementById('score--0').textContent = scores[0];
-  document.getElementById('score--1').textContent = scores[1];
-  // current scores set back to 0
-  current0Ele.textContent = 0;
-  current1Ele.textContent = 0;
-  // displaying active player (player1)
-  document.querySelector('.player--0').classList.add('player--active');
-  // activating all the buttons
-  playing = true;
-});
+btnNew.addEventListener('click', init);
