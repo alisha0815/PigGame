@@ -1,6 +1,6 @@
 # PigGame
 
-## This is a interactive dice game built on JS.
+## This is an interactive dice game built on JS.
 * [Javascript](#Javascript)
 * [Dom](#Dom)
 
